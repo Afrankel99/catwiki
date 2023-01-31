@@ -1,17 +1,18 @@
 import React from "react"
-import { Button } from "@blueprintjs/core"
 import Section from "../../components/Section"
-import Autocomplete from "@mui/material/Autocomplete"
-import TextField from "@mui/material/TextField"
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
+import ImageList from "@mui/material/ImageList"
+
+import "./style.scss"
 
 class Pictures extends React.Component {
 
     render() {
 
         return (
-            <Section title="Sweet pics" class="PicturesSection">
-                
+            <Section title="Sweet pics" class="Pictures">
+                <ImageList>
+                    
+                </ImageList>
             </Section>
         )
     }

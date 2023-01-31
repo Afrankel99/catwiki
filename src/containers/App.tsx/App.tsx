@@ -3,6 +3,7 @@ import Section from "../../components/Section"
 import NavBar from "../Navbar"
 import Pictures from "../Pictures"
 import Search from "../Search"
+import TopTen from "../TopTen"
 
 class App extends React.Component {
 
@@ -12,7 +13,7 @@ class App extends React.Component {
       <div>
         <NavBar />
         <Search />
-        <Section title="Most Searched" class="TopTenSection" />
+        <TopTen />
         <Pictures />
       </div>
     )
