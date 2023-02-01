@@ -103,7 +103,7 @@ class Search extends React.Component<ISearchProps> {
 
                 {this.state.isInfoPageOn &&
                     <Section title={this.state.selectedBreed.label} class="CatInfo">
-                        <Card>
+                        <Card className={"CatInfoCard"}>
                             <CardMedia
                                 sx={{ height: 140 }}
                                 image="/static/images/cards/contemplative-reptile.jpg"
@@ -120,15 +120,15 @@ class Search extends React.Component<ISearchProps> {
                             </CardContent>
                         </Card>
 
-                        <Paper>
-                            {/* <Chart rotated={true} data={[
+                        <Paper className={"CatInfoGraph"}>
+                            <Chart rotated={true} data={[
                                 { argument: 'Monday', value: 30 },
                                 { argument: 'Tuesday', value: 20 },
                                 { argument: 'Wednesday', value: 10 },
                                 { argument: 'Thursday', value: 50 },
                                 { argument: 'Friday', value: 60 },
-                            ]}> */}
-                            <Chart rotated={true} data={this.getCatDetails(this.state.selectedBreed.id)}>
+                            ]}>
+                            {/* <Chart rotated={true} data={this.getCatDetails(this.state.selectedBreed.id)}> */}
                                 <BarSeries valueField="value" argumentField="argument" />
                             </Chart>
                         </Paper>
