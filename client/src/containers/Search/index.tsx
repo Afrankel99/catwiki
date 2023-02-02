@@ -121,14 +121,14 @@ class Search extends React.Component<ISearchProps> {
                         </Card>
 
                         <Paper className={"CatInfoGraph"}>
-                            <Chart rotated={true} data={[
+                            {/* <Chart rotated={true} data={[
                                 { argument: 'Monday', value: 30 },
                                 { argument: 'Tuesday', value: 20 },
                                 { argument: 'Wednesday', value: 10 },
                                 { argument: 'Thursday', value: 50 },
                                 { argument: 'Friday', value: 60 },
-                            ]}>
-                            {/* <Chart rotated={true} data={this.getCatDetails(this.state.selectedBreed.id)}> */}
+                            ]}> */}
+                            <Chart rotated={true} data={this.getCatDetails(this.state.selectedBreed.id)}>
                                 <BarSeries valueField="value" argumentField="argument" />
                             </Chart>
                         </Paper>
