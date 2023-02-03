@@ -12,8 +12,6 @@ class Section extends React.Component<ISectionProps> {
     static displayName = "Section"
 
     render() {
-        // const { title, className } = this.props
-
         return (
             <div className={this.props.class}>
                 <h1>{this.props.title}</h1>

@@ -1,44 +1,50 @@
-.Search {
-    background-color: #EA8E95;
-    height: 75vh;
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.SearchSection {
+    .Search {
+        background-color: #EA8E95;
+        height: 75vh;
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
 
-    h1 {
+        h1 {
+            color: #BC4B4C;
+            font-size: xxx-large;
+            font-family: sans-serif;
+        }
+    }
+
+    .Icon {
         color: #BC4B4C;
-        font-size: xxx-large;
-        font-family: sans-serif;
-    }
-}
-
-.CatInfo {
-    background-color: #EA8E95;
-    height: 75vh;
-    width: 100%;
-    padding: 20px;
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // flex-direction: column;
-
-    h1 {
-        color: #BC4B4C;
-        font-size: xxx-large;
-        font-family: sans-serif;
     }
 
-    .CatInfoCard {
-        width: 45%;
-        float: left;
-        margin-right: 3%;
-    }
+    .CatInfo {
+        background-color: #EA8E95;
+        height: 75vh;
+        width: 100%;
+        padding: 20px;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        // flex-direction: column;
 
-    .CatInfoGraph {
-        width: 52%;
-        float: left;
+        h1 {
+            color: #BC4B4C;
+            font-size: xxx-large;
+            font-family: sans-serif;
+        }
+
+        .CatInfoCard {
+            width: 45%;
+            float: left;
+            margin-right: 3%;
+        }
+
+        .CatInfoGraph {
+            width: 52%;
+            float: left;
+        }
     }
 }

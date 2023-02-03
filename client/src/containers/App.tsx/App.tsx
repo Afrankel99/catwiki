@@ -1,23 +1,21 @@
 import React from "react"
-import Section from "../../components/Section"
 import NavBar from "../Navbar"
-import Pictures from "../Pictures"
 import Search from "../Search"
-import TopTen from "../TopTen"
+import Before from "../Before"
 
 class App extends React.Component {
 
-  render() {
+    render() {
 
-    return (
-      <div>
-        <NavBar />
-        <Search />
-        <TopTen />
-        <Pictures />
-      </div>
-    )
-  }
+        return (
+            <div>
+                <NavBar isFooter={false} />
+                <Search />
+                <Before />
+                <NavBar isFooter={true} />
+            </div>
+        )
+    }
 }
 
 export default App
