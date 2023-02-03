@@ -25,6 +25,14 @@ app.get("/allCats", (req, res) => {
     }).catch(error => console.log(error))
 })
 
+app.get("/cat/:code", (req, res) => {
+    axios.get(`https://api.thecatapi.com/v1/${req.params.code}`).then(function (response) {
+        // console.log(response)
+        res.send(response.data)
+    }).catch(error => console.log(error))
+})
+
+
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));

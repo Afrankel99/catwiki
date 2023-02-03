@@ -4,18 +4,31 @@ import { ICatViewModel } from "./CatTypes"
 export class CatsApi {
     static async getAllBreeds(): Promise<ICatViewModel[]> {
         try {
-            await axios.get("http://localhost:3001/allCats").then(response => {
-                console.log(response)
-            })
+            const response = await axios.get("http://localhost:3001/allCats")
+
+            // return response
+            return [
+                {
+                    name: "ragdoll",
+                    id: "ragd",
+                    description: "rengar"
+                } as ICatViewModel
+            ]
         } catch (error) {
             throw error as AxiosError
         }
     }
 
-    static async get(): Promise<ICatViewModel> {
+    static async get(code: string): Promise<ICatViewModel> {
         try {
-            const response = await axios.get("https://api.thecatapi.com/v1/breeds/")
-            return response
+            const response = await axios.get(`http://localhost:3001/cat/${code}`)
+
+            // return response
+            return {
+                name: "ragdoll",
+                id: "ragd",
+                description: "rengar"
+            } as ICatViewModel
         } catch (error) {
             throw error as AxiosError
         }

@@ -11,6 +11,7 @@ import CardMedia from "@mui/material/CardMedia"
 import Paper from "@mui/material/Paper"
 import { Chart, BarSeries } from "@devexpress/dx-react-chart-material-ui"
 import { CatsApi } from "../../api/index"
+import { ICatViewModel } from "../../api/CatTypes"
 
 import "./style.scss"
 
@@ -21,8 +22,8 @@ interface ICatBreed {
 
 interface ISearchState {
     isInfoPageOn: boolean
-    selectedBreed: ICatBreed
-    breeds: any[]
+    selectedBreed: ICatViewModel
+    breeds: ICatViewModel[]
 }
 
 interface ISearchProps {
@@ -32,17 +33,17 @@ interface ISearchProps {
 class Search extends React.Component<ISearchProps> {
     state = {
         isInfoPageOn: false,
-        selectedBreed: { label: "No breeds here :(", id: 0 },
+        selectedBreed: {},
         breeds: []
     } as ISearchState
 
     private async getBreeds() {
-        // let response = await axios.get("https://api.thecatapi.com/v1/breeds/")
-        // this.setState({ breeds: response.data })
+        const allBreeds = CatsApi.getAllBreeds()
+        this.setState({ breeds: allBreeds })
 
-        await axios.get("http://localhost:3001/allCats").then(response => {
-            console.log(response)
-        })
+        // await axios.get("http://localhost:3001/allCats").then(response => {
+        //     console.log(response)
+        // })
     }
 
     private getBreedNames(breedsData: any[]): any[] { // should probably make these typed
@@ -82,7 +83,6 @@ class Search extends React.Component<ISearchProps> {
 
     componentDidMount() {
         this.getBreeds()
-        // CatsApi.getAllBreeds()
     }
 
     render() {

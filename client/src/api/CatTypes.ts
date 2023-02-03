@@ -5,7 +5,7 @@ export interface ICatViewModel {
     metrics?: CatMetrics
 }
 
-export class CatMetrics {
+export interface CatMetrics {
     adaptability?: number
     affectionLevel?: number
     childFriendly?: number
@@ -14,4 +14,14 @@ export class CatMetrics {
     healthIssues?: number
     socialNeeds?: number
     strangerFriendly?: number
+}
+
+export interface AutocompleteOption {
+    label: string,
+    id: number
+}
+
+export interface ChartData {
+    argument: string,
+    value: number
 }
