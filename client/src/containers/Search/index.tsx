@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography"
 import CardMedia from "@mui/material/CardMedia"
 import Paper from "@mui/material/Paper"
 import { Chart, BarSeries } from "@devexpress/dx-react-chart-material-ui"
+import { CatsApi } from "../../api/index"
 
 import "./style.scss"
 
@@ -36,8 +37,12 @@ class Search extends React.Component<ISearchProps> {
     } as ISearchState
 
     private async getBreeds() {
-        let response = await axios.get("https://api.thecatapi.com/v1/breeds/")
-        this.setState({ breeds: response.data })
+        // let response = await axios.get("https://api.thecatapi.com/v1/breeds/")
+        // this.setState({ breeds: response.data })
+
+        await axios.get("http://localhost:3001/allCats").then(response => {
+            console.log(response)
+        })
     }
 
     private getBreedNames(breedsData: any[]): any[] { // should probably make these typed
@@ -77,12 +82,13 @@ class Search extends React.Component<ISearchProps> {
 
     componentDidMount() {
         this.getBreeds()
+        // CatsApi.getAllBreeds()
     }
 
     render() {
 
         return (
-            <div>
+            <div className="SearchSection">
                 {!this.state.isInfoPageOn &&
                     <Section title="Let's meet your new best friend." class="Search">
                         <Autocomplete
@@ -97,7 +103,7 @@ class Search extends React.Component<ISearchProps> {
                             id="combo-box-demo"
                             onChange={(_event, value) => this.onBreedClick(value as ICatBreed)}
                         />
-                        <FavoriteBorderIcon />
+                        <FavoriteBorderIcon className="Icon"/>
                     </Section>
                 }
 
@@ -111,23 +117,16 @@ class Search extends React.Component<ISearchProps> {
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
-                                    Lizard
+                                    {this.state.selectedBreed.label}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                                    species, ranging across all continents except Antarctica
+                                    {/* {this.state.selectedBreed.description} */}
+                                    {"Description will go here"}
                                 </Typography>
                             </CardContent>
                         </Card>
 
                         <Paper className={"CatInfoGraph"}>
-                            {/* <Chart rotated={true} data={[
-                                { argument: 'Monday', value: 30 },
-                                { argument: 'Tuesday', value: 20 },
-                                { argument: 'Wednesday', value: 10 },
-                                { argument: 'Thursday', value: 50 },
-                                { argument: 'Friday', value: 60 },
-                            ]}> */}
                             <Chart rotated={true} data={this.getCatDetails(this.state.selectedBreed.id)}>
                                 <BarSeries valueField="value" argumentField="argument" />
                             </Chart>
