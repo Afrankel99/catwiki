@@ -3,7 +3,6 @@ import Section from "../../components/Section"
 import Autocomplete from "@mui/material/Autocomplete"
 import TextField from "@mui/material/TextField"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
-import axios from "axios"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
@@ -108,16 +107,16 @@ class Search extends React.Component<ISearchProps> {
                 }
 
                 {this.state.isInfoPageOn &&
-                    <Section title={this.state.selectedBreed.label} class="CatInfo">
+                    <Section title={this.state.selectedBreed.name} class="CatInfo">
                         <Card className={"CatInfoCard"}>
                             <CardMedia
                                 sx={{ height: 140 }}
-                                image="/static/images/cards/contemplative-reptile.jpg"
+                                image="https://cdn2.thecatapi.com/images/UhqCZ7tC4.jpg"
                                 title="green iguana"
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
-                                    {this.state.selectedBreed.label}
+                                    {this.state.selectedBreed.name}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
                                     {/* {this.state.selectedBreed.description} */}
@@ -139,4 +138,3 @@ class Search extends React.Component<ISearchProps> {
 }
 
 export default Search
-

@@ -1,17 +1,26 @@
 .Before {
     background-color: #f2ddd4;
     color: #BC4B4C;
-    height: 60vh;
+    height: 100vh;
     width: 100%;
     padding: 20px;
-    text-align: left;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 
     h1 {
-        font-size: xx-large;
+        font-size: xxx-large;
         font-family: sans-serif;
+    }
+
+    .Content {
+        text-align: left;
+        display: flex;
+        float: left;
+        width: 100%;
+        justify-content: center;
+
+        .ImageBox img {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+        }
     }
 }
