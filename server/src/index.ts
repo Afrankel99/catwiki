@@ -1,12 +1,14 @@
 import express, { Response, Request } from "express"
 import cors from "cors"
 import { getBreeds, getBreed } from "./services/cat.service"
+import path from "path"
 
 const PORT = process.env.PORT || 3001
 
 const app = express()
 app.use(cors())
-app.use("/client", express.static("../../client"))
+// app.use("/client", express.static("../../client"))
+app.use(express.static(path.resolve(__dirname, "../../client")));
 
 app.get("/api", (req: Request, res: Response) => {
     res.json({

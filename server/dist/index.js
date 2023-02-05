@@ -6,10 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var cors_1 = __importDefault(require("cors"));
 var cat_service_1 = require("./services/cat.service");
+var path_1 = __importDefault(require("path"));
 var PORT = process.env.PORT || 3001;
 var app = (0, express_1.default)();
 app.use((0, cors_1.default)());
-app.use("/client", express_1.default.static("../../client"));
+// app.use("/client", express.static("../../client"))
+app.use(express_1.default.static(path_1.default.resolve(__dirname, "../../client")));
 app.get("/api", function (req, res) {
     res.json({
         message: "Hello!"

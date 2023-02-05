@@ -76,7 +76,7 @@ class Search extends React.Component {
                         <Button
                             variant="contained"
                             endIcon={<ArrowBack />}
-                            sx={{ marginBottom: "10", backgroundColor: "#FFFFFF", color: "#BC4B4C"}}
+                            sx={{ marginBottom: "10px", backgroundColor: "#FFFFFF", color: "#BC4B4C"}}
                             onClick={() => this.onBackClick()}
                             className={"BackButton"}
                         >
