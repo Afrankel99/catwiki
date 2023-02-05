@@ -1,6 +1,8 @@
 import express, { Response, Request } from "express"
 import axios from "axios"
 import cors from "cors"
+import { CatService, getBreeds, getBreed } from "./services/cat.service"
+import { CatViewModel } from "./models/cat.viewModel"
 
 const PORT = process.env.PORT || 3001
 
@@ -15,23 +17,16 @@ app.get("/api", (req: Request, res: Response) => {
 })
 
 app.get("/breeds", (req: Request, res: Response) => {
-    axios.get("https://api.thecatapi.com/v1/breeds/").then((response) => {
-        console.log(response)
-        res.send(response.data)
+    getBreeds().then((response) => {
+        res.send(response)
     }).catch(error => console.log(error))
 })
 
-// app.get("/cat/:code", (req, res) => {
-//     axios.get(`https://api.thecatapi.com/v1/breeds/${req.params.code}`).then(function (response) {
-//         // console.log(response)
-//         res.send(response.data)
-//     }).catch(error => console.log(error))
-// })
-
-// // All other GET requests not handled before will return our React app
-// app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
-// })
+app.get("/breeds/:code", (req: Request, res: Response) => {
+    getBreed(req.params.code).then((response) => {
+        res.send(response)
+    }).catch(error => console.log(error))
+})
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`)

@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCats = exports.CatService = void 0;
+exports.getBreed = exports.getBreeds = exports.CatService = void 0;
 var axios_1 = __importDefault(require("axios"));
 var cat_viewModel_1 = require("../models/cat.viewModel");
 var CatService = /** @class */ (function () {
@@ -47,20 +47,38 @@ var CatService = /** @class */ (function () {
     }
     CatService.getAll = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var response, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, axios_1.default.get("https://api.thecatapi.com/v1/breeds/")];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, axios_1.default.get("https://api.thecatapi.com/v1/breeds/")];
+                    case 1:
+                        response = _a.sent();
+                        return [2 /*return*/, response.data];
+                    case 2:
+                        error_1 = _a.sent();
+                        throw error_1;
+                    case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    CatService.get = function (code) {
+    CatService.getOne = function (code) {
         return __awaiter(this, void 0, void 0, function () {
+            var response, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, axios_1.default.get("https://api.thecatapi.com/v1/breeds/".concat(code))];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, axios_1.default.get("https://api.thecatapi.com/v1/breeds/".concat(code))];
+                    case 1:
+                        response = _a.sent();
+                        return [2 /*return*/, response.data];
+                    case 2:
+                        error_2 = _a.sent();
+                        throw error_2;
+                    case 3: return [2 /*return*/];
                 }
             });
         });
@@ -68,29 +86,45 @@ var CatService = /** @class */ (function () {
     return CatService;
 }());
 exports.CatService = CatService;
-var getCats = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var cats, catViewModels, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, CatService.getAll()];
-            case 1:
-                cats = _a.sent();
-                catViewModels = cats.map(function (c) { return cat_viewModel_1.CatViewModel.fromModel(c); });
-                return [2 /*return*/, catViewModels];
-            case 2:
-                error_1 = _a.sent();
-                throw error_1;
-            case 3: return [2 /*return*/];
-        }
+function getBreeds() {
+    return __awaiter(this, void 0, void 0, function () {
+        var cats, result, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, CatService.getAll()];
+                case 1:
+                    cats = _a.sent();
+                    result = cats.map(function (c) { return cat_viewModel_1.CatViewModel.fromModel(c); });
+                    return [2 /*return*/, result];
+                case 2:
+                    error_3 = _a.sent();
+                    throw error_3;
+                case 3: return [2 /*return*/];
+            }
+        });
     });
-}); };
-exports.getCats = getCats;
-// const getCat = async (req: Request, res: Response): Promise<void> => {
-//     try {
-//         const cat: CatModel = await CatService.get(req.params.code)
-//     } catch (error) {
-//         throw error
-//     }
-// }
+}
+exports.getBreeds = getBreeds;
+function getBreed(code) {
+    return __awaiter(this, void 0, void 0, function () {
+        var cat, result, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, CatService.getOne(code)];
+                case 1:
+                    cat = _a.sent();
+                    result = cat_viewModel_1.CatViewModel.fromModel(cat);
+                    return [2 /*return*/, result];
+                case 2:
+                    error_4 = _a.sent();
+                    throw error_4;
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getBreed = getBreed;
