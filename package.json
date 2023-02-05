@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "client": "cd client && npm install && vite",
+    "client": "cd client && npm install && tsc && vite build",
     "server": "cd server && npm install && node dist/index.js",
     "both": "concurrently \"npm run client\" \"npm run server\""
   },
