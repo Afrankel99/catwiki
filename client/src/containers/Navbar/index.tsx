@@ -1,6 +1,7 @@
 import React from "react"
-import { Alignment, Button, Navbar } from "@blueprintjs/core"
+import { Alignment, Navbar } from "@blueprintjs/core"
 import PetsIcon from "@mui/icons-material/Pets"
+import "@blueprintjs/core/lib/css/blueprint.css"
 
 import "./style.scss"
 

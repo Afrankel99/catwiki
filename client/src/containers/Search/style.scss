@@ -28,6 +28,11 @@
         width: 100%;
         padding: 20px;
 
+        .BackButton:hover {
+            background-color: #BC4B4C;
+            color: #ffffff;
+        }
+
         .Metrics {
             display: flex;
         }

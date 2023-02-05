@@ -9,8 +9,8 @@ import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 import { CatsApi } from "../../api/index"
 import { ICatViewModel } from "../../api/CatTypes"
-import { Button } from "@mui/material"
-import { ArrowBack } from "@mui/icons-material"
+import Button from "@mui/material/Button"
+import ArrowBack from "@mui/icons-material/ArrowBack"
 import { Bar, BarChart, XAxis, YAxis } from "recharts"
 
 import "./style.scss"
@@ -76,8 +76,9 @@ class Search extends React.Component {
                         <Button
                             variant="contained"
                             endIcon={<ArrowBack />}
-                            sx={{ display: "block", backgroundColor: "#FFFFFF", color: "#BC4B4C"}}
+                            sx={{ marginBottom: "10", backgroundColor: "#FFFFFF", color: "#BC4B4C"}}
                             onClick={() => this.onBackClick()}
+                            className={"BackButton"}
                         >
                             Back
                         </Button>
