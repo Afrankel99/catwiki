@@ -20,6 +20,15 @@ export class CatService {
             throw error as AxiosError
         }
     }
+
+    static async getCatImage(referenceId: string): Promise<string> {
+        try {
+            const response = await axios.get(`https://api.thecatapi.com/v1/images/${referenceId}`)
+            return response.data.url
+        } catch (error) {
+            throw error as AxiosError
+        }
+    }
 }
 
 export async function getBreeds(): Promise<CatViewModel[]> {
@@ -37,6 +46,10 @@ export async function getBreed(code: string): Promise<CatViewModel> {
     try {
         const cat: CatModel = await CatService.getOne(code)
         const result = CatViewModel.fromModel(cat)
+
+        const catUrl = await CatService.getCatImage(cat.reference_image_id ?? "")
+
+        result.imageUrl = catUrl
 
         return result
     } catch (error) {

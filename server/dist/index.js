@@ -27,18 +27,6 @@ app.get("/breeds/:code", function (req, res) {
         res.send(response);
     }).catch(function (error) { return console.log(error); });
 });
-// get autocomplete data
-app.get("/autocomplete", function (req, res) {
-    (0, cat_service_1.getBreed)(req.params.code).then(function (response) {
-        res.send(response);
-    }).catch(function (error) { return console.log(error); });
-});
-// get chart data for one specific breed
-app.get("/chartData/:code", function (req, res) {
-    (0, cat_service_1.getBreed)(req.params.code).then(function (response) {
-        res.send(response);
-    }).catch(function (error) { return console.log(error); });
-});
 app.listen(PORT, function () {
     console.log("Server listening on ".concat(PORT));
 });

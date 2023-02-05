@@ -6,13 +6,12 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
-import CardMedia from "@mui/material/CardMedia"
 import Paper from "@mui/material/Paper"
-import { Chart, BarSeries, ArgumentAxis, ValueAxis } from "@devexpress/dx-react-chart-material-ui"
 import { CatsApi } from "../../api/index"
 import { ICatViewModel } from "../../api/CatTypes"
 import { Button } from "@mui/material"
 import { ArrowBack } from "@mui/icons-material"
+import { Bar, BarChart, XAxis, YAxis } from "recharts"
 
 import "./style.scss"
 
@@ -36,7 +35,9 @@ class Search extends React.Component {
     }
 
     private onBreedClick(catBreed: ICatViewModel) {
-        this.setState({ ...this.state, isInfoPageOn: true, selectedBreed: catBreed })
+        CatsApi.getBreed(catBreed.id).then(response => {
+            this.setState({ ...this.state, isInfoPageOn: true, selectedBreed: response })
+        })
     }
 
     private onBackClick() {
@@ -75,33 +76,43 @@ class Search extends React.Component {
                         <Button
                             variant="contained"
                             endIcon={<ArrowBack />}
-                            sx={{ display: "block", color: "white" }}
+                            sx={{ display: "block", backgroundColor: "#FFFFFF", color: "#BC4B4C"}}
                             onClick={() => this.onBackClick()}
                         >
                             Back
                         </Button>
-                        <Card className={"CatInfoCard"}>
-                            <CardMedia
-                                sx={{ height: 400 }}
-                                image="https://cdn2.thecatapi.com/images/UhqCZ7tC4.jpg"
-                            />
-                            <CardContent sx={{ height: 100 }}>
-                                <Typography variant="h5" component="div">
-                                    {this.state.selectedBreed.name}
-                                </Typography>
-                                <Typography variant="body2">
-                                    {this.state.selectedBreed.description}
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                        <div className="Metrics">
+                            <Card className={"CatInfoCard"}>
+                                <div className={"ImageBox"}>
+                                    <img
+                                        src={this.state.selectedBreed.imageUrl}
+                                        className={"BeforeImage"}
+                                    />
+                                </div>
+                                <CardContent sx={{ height: 1 / 4 }}>
+                                    <Typography variant="h5" component="div">
+                                        {this.state.selectedBreed.name}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        {this.state.selectedBreed.description}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
 
-                        <Paper className={"CatInfoGraph"}>
-                            <Chart rotated={true} data={this.state.selectedBreed.metrics}>
-                                <ArgumentAxis />
-                                <ValueAxis />
-                                <BarSeries valueField="value" argumentField="argument" />
-                            </Chart>
-                        </Paper>
+                            <Paper className={"CatInfoGraph"}>
+                                <BarChart
+                                    layout="horizontal"
+                                    width={700}
+                                    height={500}
+                                    data={this.state.selectedBreed.metrics}
+                                    barCategoryGap={10}
+                                >
+                                    <XAxis dataKey="name" />
+                                    <YAxis dataKey="value" />
+                                    <Bar dataKey="value" fill="#BC4B4C" />
+                                </BarChart>
+                            </Paper>
+                        </div>
                     </Section>
                 }
             </div>

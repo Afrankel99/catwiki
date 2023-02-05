@@ -83,12 +83,31 @@ var CatService = /** @class */ (function () {
             });
         });
     };
+    CatService.getCatImage = function (referenceId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, axios_1.default.get("https://api.thecatapi.com/v1/images/".concat(referenceId))];
+                    case 1:
+                        response = _a.sent();
+                        return [2 /*return*/, response.data.url];
+                    case 2:
+                        error_3 = _a.sent();
+                        throw error_3;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
     return CatService;
 }());
 exports.CatService = CatService;
 function getBreeds() {
     return __awaiter(this, void 0, void 0, function () {
-        var cats, result, error_3;
+        var cats, result, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -99,8 +118,8 @@ function getBreeds() {
                     result = cats.map(function (c) { return cat_viewModel_1.CatViewModel.fromModel(c); });
                     return [2 /*return*/, result];
                 case 2:
-                    error_3 = _a.sent();
-                    throw error_3;
+                    error_4 = _a.sent();
+                    throw error_4;
                 case 3: return [2 /*return*/];
             }
         });
@@ -108,21 +127,26 @@ function getBreeds() {
 }
 exports.getBreeds = getBreeds;
 function getBreed(code) {
+    var _a;
     return __awaiter(this, void 0, void 0, function () {
-        var cat, result, error_4;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var cat, result, catUrl, error_5;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    _b.trys.push([0, 3, , 4]);
                     return [4 /*yield*/, CatService.getOne(code)];
                 case 1:
-                    cat = _a.sent();
+                    cat = _b.sent();
                     result = cat_viewModel_1.CatViewModel.fromModel(cat);
-                    return [2 /*return*/, result];
+                    return [4 /*yield*/, CatService.getCatImage((_a = cat.reference_image_id) !== null && _a !== void 0 ? _a : "")];
                 case 2:
-                    error_4 = _a.sent();
-                    throw error_4;
-                case 3: return [2 /*return*/];
+                    catUrl = _b.sent();
+                    result.imageUrl = catUrl;
+                    return [2 /*return*/, result];
+                case 3:
+                    error_5 = _b.sent();
+                    throw error_5;
+                case 4: return [2 /*return*/];
             }
         });
     });

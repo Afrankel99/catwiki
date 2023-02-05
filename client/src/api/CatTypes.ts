@@ -3,6 +3,7 @@ export interface ICatViewModel {
     id: string
     description: string
     metrics: ChartData[]
+    imageUrl: string
 }
 
 export interface ChartData {

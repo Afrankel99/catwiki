@@ -1,7 +1,10 @@
 .SearchSection {
+    background-color: #EA8E95;
+    display: block;
+    padding-bottom: 50px;
+
     .Search {
         background-color: #EA8E95;
-        height: 75vh;
         width: 100%;
         padding: 20px;
         display: flex;
@@ -22,9 +25,12 @@
 
     .CatInfo {
         background-color: #EA8E95;
-        height: 75vh;
         width: 100%;
         padding: 20px;
+
+        .Metrics {
+            display: flex;
+        }
 
         h1 {
             color: #BC4B4C;
@@ -36,6 +42,11 @@
             width: 45%;
             float: left;
             margin-right: 3%;
+
+            .ImageBox img {
+                max-width: 100%;
+                object-fit: cover;
+            }
         }
 
         .CatInfoGraph {

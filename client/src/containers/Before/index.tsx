@@ -17,13 +17,17 @@ class Before extends React.Component {
                             className={"BeforeImage"}
                         />
                     </div>
-                    <Paper elevation={5} sx={{
-                        boxShadow: 1,
-                        borderRadius: .5,
-                        p: 2,
-                        width: 500,
-                        height: 500
-                    }}>
+                    <Paper
+                        elevation={5}
+                        sx={{
+                            boxShadow: 1,
+                            borderRadius: .5,
+                            p: 2,
+                            width: 500,
+                            height: 500
+                        }}
+                        className={"ListContainer"}
+                    >
                         <p>There are a couple things to consider before getting a cat:</p>
                         <ol>
                             <li>First, can you afford it? Remember you'll need to pay for vet bills, grooming, food and litter!</li>

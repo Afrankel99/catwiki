@@ -3,5 +3,16 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      exclude: ['**/node_modules/**', '**/vite.config.ts'],
+      include: [
+        './vite.config.ts',
+        'src/**/*.tsx',
+        'src/**/*.ts',
+        'src/**/*.jsx',
+        'src/**/*.js',
+      ],
+    }),
+  ],
 })

@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "client": "cd client && vite",
+    "server": "cd server && node dist/index.js",
+    "both": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0",
+    "vite": "^4.1.1"
+  },
+  "name": "special-octo-spork",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Afrankel99/special-octo-spork.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Afrankel99/special-octo-spork/issues"
+  },
+  "homepage": "https://github.com/Afrankel99/special-octo-spork#readme",
+  "description": ""
+}
