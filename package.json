@@ -2,7 +2,8 @@
   "scripts": {
     "client": "cd client && vite",
     "server": "cd server && node dist/index.js",
-    "both": "concurrently \"npm run client\" \"npm run server\""
+    "both": "concurrently \"npm run client\" \"npm run server\"",
+    "render": "concurrently \"npm install && npm run client\" \"npm install && npm run server\""
   },
   "dependencies": {
     "concurrently": "^7.6.0",
