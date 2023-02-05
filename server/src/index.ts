@@ -1,8 +1,6 @@
 import express, { Response, Request } from "express"
-import axios from "axios"
 import cors from "cors"
-import { CatService, getBreeds, getBreed } from "./services/cat.service"
-import { CatViewModel } from "./models/cat.viewModel"
+import { getBreeds, getBreed } from "./services/cat.service"
 
 const PORT = process.env.PORT || 3001
 
@@ -16,12 +14,14 @@ app.get("/api", (req: Request, res: Response) => {
     })
 })
 
+// get all breeds
 app.get("/breeds", (req: Request, res: Response) => {
     getBreeds().then((response) => {
         res.send(response)
     }).catch(error => console.log(error))
 })
 
+// get one specific breed
 app.get("/breeds/:code", (req: Request, res: Response) => {
     getBreed(req.params.code).then((response) => {
         res.send(response)

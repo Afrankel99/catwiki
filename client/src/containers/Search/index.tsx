@@ -8,16 +8,13 @@ import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import CardMedia from "@mui/material/CardMedia"
 import Paper from "@mui/material/Paper"
-import { Chart, BarSeries } from "@devexpress/dx-react-chart-material-ui"
+import { Chart, BarSeries, ArgumentAxis, ValueAxis } from "@devexpress/dx-react-chart-material-ui"
 import { CatsApi } from "../../api/index"
 import { ICatViewModel } from "../../api/CatTypes"
+import { Button } from "@mui/material"
+import { ArrowBack } from "@mui/icons-material"
 
 import "./style.scss"
-
-interface ICatBreed {
-    label: string
-    id: number
-}
 
 interface ISearchState {
     isInfoPageOn: boolean
@@ -25,59 +22,25 @@ interface ISearchState {
     breeds: ICatViewModel[]
 }
 
-interface ISearchProps {
-
-}
-
-class Search extends React.Component<ISearchProps> {
+class Search extends React.Component {
     state = {
         isInfoPageOn: false,
-        selectedBreed: {},
+        selectedBreed: {} as ICatViewModel,
         breeds: []
     } as ISearchState
 
     private async getBreeds() {
-        const allBreeds = CatsApi.getAllBreeds()
-        this.setState({ breeds: allBreeds })
-
-        // await axios.get("http://localhost:3001/allCats").then(response => {
-        //     console.log(response)
-        // })
-    }
-
-    private getBreedNames(breedsData: any[]): any[] { // should probably make these typed
-        let breedNames = []
-
-        for (let i = 0; i < breedsData.length; i++) {
-            breedNames.push({ label: breedsData[i].name, id: i })
-        }
-
-        return breedNames.length == 0 ? [{ label: "No breeds here :(", id: 0 }] : breedNames
-    }
-
-    private getCatDetails(catId: number): any[] { // should probably make these typed
-        /* <Chart rotated={true} data={[
-            { argument: 'Monday', value: 30 },
-            { argument: 'Tuesday', value: 20 },
-            { argument: 'Wednesday', value: 10 },
-            { argument: 'Thursday', value: 50 },
-            { argument: 'Friday', value: 60 },
-        ]}> */
-
-        let catDetails = []
-
-        const theCatWeWant = this.state.breeds[catId]
-        const catDetailsObjects = Object.entries(theCatWeWant)
-
-        catDetails = catDetailsObjects.map((e) => {
-            ({ argument: e[0], value: e[1] })
+        CatsApi.getAllBreeds().then(response => {
+            this.setState({ breeds: response })
         })
-
-        return catDetails
     }
 
-    private onBreedClick(catBreed: ICatBreed) {
+    private onBreedClick(catBreed: ICatViewModel) {
         this.setState({ ...this.state, isInfoPageOn: true, selectedBreed: catBreed })
+    }
+
+    private onBackClick() {
+        this.setState({ ...this.state, isInfoPageOn: false, selectedBreed: {} as ICatViewModel })
     }
 
     componentDidMount() {
@@ -92,7 +55,8 @@ class Search extends React.Component<ISearchProps> {
                     <Section title="Let's meet your new best friend." class="Search">
                         <Autocomplete
                             renderInput={(params) => <TextField {...params} label="Enter breed" />}
-                            options={this.getBreedNames(this.state.breeds)}
+                            options={this.state.breeds}
+                            getOptionLabel={(option) => option.name ?? ""}
                             sx={{
                                 width: 1 / 4,
                                 mx: "auto",
@@ -100,33 +64,41 @@ class Search extends React.Component<ISearchProps> {
                             }}
                             disablePortal
                             id="combo-box-demo"
-                            onChange={(_event, value) => this.onBreedClick(value as ICatBreed)}
+                            onChange={(_event, value) => this.onBreedClick(value as ICatViewModel)}
                         />
-                        <FavoriteBorderIcon className="Icon"/>
+                        <FavoriteBorderIcon className="Icon" />
                     </Section>
                 }
 
                 {this.state.isInfoPageOn &&
                     <Section title={this.state.selectedBreed.name} class="CatInfo">
+                        <Button
+                            variant="contained"
+                            endIcon={<ArrowBack />}
+                            sx={{ display: "block", color: "white" }}
+                            onClick={() => this.onBackClick()}
+                        >
+                            Back
+                        </Button>
                         <Card className={"CatInfoCard"}>
                             <CardMedia
-                                sx={{ height: 140 }}
+                                sx={{ height: 400 }}
                                 image="https://cdn2.thecatapi.com/images/UhqCZ7tC4.jpg"
-                                title="green iguana"
                             />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
+                            <CardContent sx={{ height: 100 }}>
+                                <Typography variant="h5" component="div">
                                     {this.state.selectedBreed.name}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {/* {this.state.selectedBreed.description} */}
-                                    {"Description will go here"}
+                                <Typography variant="body2">
+                                    {this.state.selectedBreed.description}
                                 </Typography>
                             </CardContent>
                         </Card>
 
                         <Paper className={"CatInfoGraph"}>
-                            <Chart rotated={true} data={this.getCatDetails(this.state.selectedBreed.id)}>
+                            <Chart rotated={true} data={this.state.selectedBreed.metrics}>
+                                <ArgumentAxis />
+                                <ValueAxis />
                                 <BarSeries valueField="value" argumentField="argument" />
                             </Chart>
                         </Paper>

@@ -1,6 +1,5 @@
 import axios, { AxiosError } from "axios"
 import { CatModel } from "../models/cat.model"
-import { Response, Request } from "express"
 import { CatViewModel } from "../models/cat.viewModel"
 
 export class CatService {

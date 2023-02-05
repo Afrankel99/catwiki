@@ -1,11 +1,11 @@
 import { CatModel } from "./cat.model"
-import { CatMetrics } from "./catMetrics.viewModel";
+import { ChartData } from "./chartData.viewModel"
 
 export class CatViewModel {
     name?: string
     id?: string
     description?: string
-    metrics?: CatMetrics
+    metrics?: ChartData[]
 
     static fromModel(model: CatModel): CatViewModel {
         const result = new CatViewModel
@@ -14,18 +14,18 @@ export class CatViewModel {
         result.id = model.id
         result.description = model.description
 
-        const metrics = new CatMetrics
+        const metricsArray = [
+            { argument: 'Adaptability', value: model.adaptability },
+            { argument: 'Affection level', value: model.affection_level },
+            { argument: 'Child friendly', value: model.child_friendly },
+            { argument: 'Grooming', value: model.grooming },
+            { argument: 'Health issues', value: model.health_issues },
+            { argument: 'Intelligence', value: model.intelligence },
+            { argument: 'Social needs', value: model.social_needs },
+            { argument: 'Stranger friendly', value: model.stranger_friendly }
+        ]
 
-        metrics.adaptability = model.adaptability
-        metrics.affectionLevel = model.affection_level
-        metrics.childFriendly = model.child_friendly
-        metrics.grooming = model.grooming
-        metrics.healthIssues = model.health_issues
-        metrics.intelligence = model.intelligence
-        metrics.socialNeeds = model.social_needs
-        metrics.strangerFriendly = model.stranger_friendly
-
-        result.metrics = metrics
+        result.metrics = metricsArray
 
         return result
     }

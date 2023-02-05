@@ -15,23 +15,29 @@ app.get("/api", function (req, res) {
         message: "Hello!"
     });
 });
-// app.get("/breeds", (req: Request, res: Response) => {
-//     axios.get("https://api.thecatapi.com/v1/breeds/").then((response) => {
-//         res.send(response.data)
-//     }).catch(error => console.log(error))
-// })
+// get all breeds
 app.get("/breeds", function (req, res) {
     (0, cat_service_1.getBreeds)().then(function (response) {
         res.send(response);
     }).catch(function (error) { return console.log(error); });
 });
+// get one specific breed
 app.get("/breeds/:code", function (req, res) {
     (0, cat_service_1.getBreed)(req.params.code).then(function (response) {
         res.send(response);
     }).catch(function (error) { return console.log(error); });
-    // axios.get(`https://api.thecatapi.com/v1/breeds/${req.params.code}`).then(function (response) {
-    //     res.send(response.data)
-    // }).catch(error => console.log(error))
+});
+// get autocomplete data
+app.get("/autocomplete", function (req, res) {
+    (0, cat_service_1.getBreed)(req.params.code).then(function (response) {
+        res.send(response);
+    }).catch(function (error) { return console.log(error); });
+});
+// get chart data for one specific breed
+app.get("/chartData/:code", function (req, res) {
+    (0, cat_service_1.getBreed)(req.params.code).then(function (response) {
+        res.send(response);
+    }).catch(function (error) { return console.log(error); });
 });
 app.listen(PORT, function () {
     console.log("Server listening on ".concat(PORT));

@@ -4,16 +4,8 @@ import { ICatViewModel } from "./CatTypes"
 export class CatsApi {
     static async getAllBreeds(): Promise<ICatViewModel[]> {
         try {
-            const response = await axios.get("http://localhost:3001/allCats")
-
-            // return response
-            return [
-                {
-                    name: "ragdoll",
-                    id: "ragd",
-                    description: "rengar"
-                } as ICatViewModel
-            ]
+            const response = await axios.get("http://localhost:3001/breeds")
+            return response.data
         } catch (error) {
             throw error as AxiosError
         }
@@ -21,14 +13,8 @@ export class CatsApi {
 
     static async getBreed(code: string): Promise<ICatViewModel> {
         try {
-            const response = await axios.get(`http://localhost:3001/cat/${code}`)
-
-            // return response
-            return {
-                name: "ragdoll",
-                id: "ragd",
-                description: "rengar"
-            } as ICatViewModel
+            const response = await axios.get(`http://localhost:3001/breeds/${code}`)
+            return response.data
         } catch (error) {
             throw error as AxiosError
         }
