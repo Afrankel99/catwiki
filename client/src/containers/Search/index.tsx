@@ -11,7 +11,7 @@ import { CatsApi } from "../../api/index"
 import { ICatViewModel } from "../../api/CatTypes"
 import Button from "@mui/material/Button"
 import ArrowBack from "@mui/icons-material/ArrowBack"
-import { Bar, BarChart, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 
 import "./style.scss"
 
@@ -76,7 +76,7 @@ class Search extends React.Component {
                         <Button
                             variant="contained"
                             endIcon={<ArrowBack />}
-                            sx={{ marginBottom: "10px", backgroundColor: "#FFFFFF", color: "#BC4B4C"}}
+                            sx={{ marginBottom: "10px", backgroundColor: "#FFFFFF", color: "#BC4B4C" }}
                             onClick={() => this.onBackClick()}
                             className={"BackButton"}
                         >
@@ -101,17 +101,17 @@ class Search extends React.Component {
                             </Card>
 
                             <Paper className={"CatInfoGraph"}>
-                                <BarChart
-                                    layout="horizontal"
-                                    width={700}
-                                    height={500}
-                                    data={this.state.selectedBreed.metrics}
-                                    barCategoryGap={10}
-                                >
-                                    <XAxis dataKey="name" />
-                                    <YAxis dataKey="value" />
-                                    <Bar dataKey="value" fill="#BC4B4C" />
-                                </BarChart>
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart
+                                        layout="horizontal"
+                                        data={this.state.selectedBreed.metrics}
+                                        barCategoryGap={15}
+                                    >
+                                        <XAxis dataKey="name" interval={0} />
+                                        <YAxis dataKey="value" />
+                                        <Bar dataKey="value" fill="#BC4B4C" />
+                                    </BarChart>
+                                </ResponsiveContainer>
                             </Paper>
                         </div>
                     </Section>
