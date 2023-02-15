@@ -4,7 +4,7 @@
 A catwiki site for Blowfish Studio's Coding Challenge 2023. 😎
 
 ## What does it do?
-Purrfect is a React App with a Node Backend that allows users to browse cat breeds and find their perfect furry friend and asks some important questions people should ask themselves before buying a cat. 😻
+Purrfect is a React App with a Node Backend that allows users to browse cat breeds and find their perfect furry friend and asks some important questions people should ask themselves before buying a cat. 😻 Have a play here: https://catwiki-bnnu.onrender.com/
 
 ## What technologies?
 Not sure how in detail I am supposed to go here but the big guys are:
@@ -33,4 +33,4 @@ Just as I was starting to see the light at the end of the tunnel and it was all 
 The last step which I mistakingly believed would be the quickest and easiest. I used Render instead of Heroku because of the free aspect. 🤑😁 Deploying my app was the most difficult step because I didn't understand how fullstack applications were meant to be deployed and was trying to deploy the entire app as one instead of splitting up the client and server directories (huge shoutout to this video here: https://www.youtube.com/watch?v=8vkvsv1Mcg0).
 
 ## If I had more time?
-For my first try at making a fullstack application, I'm proud of what I was able to create. There are a lot of things I would adjust, adding a spinner for the delay when you click a breed would be the first. The styling could also use some help and I'm sure there are 100% different ways I could optimise it. 
+For my first try at making a fullstack application, I'm proud of what I was able to create. There are a lot of things I would adjust, adding a spinner for the delay when you click a breed would be the first. The styling could also use some help (would change the favicon forsure) and I'm sure there are 100% different ways I could optimise it. 
