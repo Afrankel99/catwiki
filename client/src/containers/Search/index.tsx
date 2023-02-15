@@ -1,4 +1,4 @@
-import React from "react"
+import { useState, useEffect } from "react"
 import Section from "../../components/Section"
 import Autocomplete from "@mui/material/Autocomplete"
 import TextField from "@mui/material/TextField"
@@ -15,110 +15,101 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 
 import "./style.scss"
 
-interface ISearchState {
-    isInfoPageOn: boolean
-    selectedBreed: ICatViewModel
-    breeds: ICatViewModel[]
-}
+function Search() {
+    const [isInfoPageOn, setIsInfoPageOn] = useState(false)
+    const [selectedBreed, setSelectedBreed] = useState({} as ICatViewModel)
+    const [breeds, setBreeds] = useState([] as ICatViewModel[])
 
-class Search extends React.Component {
-    state = {
-        isInfoPageOn: false,
-        selectedBreed: {} as ICatViewModel,
-        breeds: []
-    } as ISearchState
-
-    private async getBreeds() {
+    function getBreeds() {
         CatsApi.getAllBreeds().then(response => {
-            this.setState({ breeds: response })
+            setBreeds(response)
         })
     }
 
-    private onBreedClick(catBreed: ICatViewModel) {
+    function onBreedClick(catBreed: ICatViewModel) {
         CatsApi.getBreed(catBreed.id).then(response => {
-            this.setState({ ...this.state, isInfoPageOn: true, selectedBreed: response })
+            setIsInfoPageOn(true)
+            setSelectedBreed(response)
         })
     }
-
-    private onBackClick() {
-        this.setState({ ...this.state, isInfoPageOn: false, selectedBreed: {} as ICatViewModel })
+    
+    function onBackClick() {
+        setSelectedBreed({} as ICatViewModel)
+        setIsInfoPageOn(false)
     }
 
-    componentDidMount() {
-        this.getBreeds()
-    }
+    useEffect(() => {
+        getBreeds()
+    }, [])
 
-    render() {
+    return (
+        <div className="SearchSection">
+            {!isInfoPageOn &&
+                <Section title="Let's meet your new best friend." class="Search">
+                    <Autocomplete
+                        renderInput={(params) => <TextField {...params} label="Enter breed" />}
+                        options={breeds}
+                        getOptionLabel={(option) => option.name ?? ""}
+                        sx={{
+                            width: 1 / 4,
+                            mx: "auto",
+                            mb: 2
+                        }}
+                        disablePortal
+                        id="combo-box-demo"
+                        onChange={(_event, value) => onBreedClick(value as ICatViewModel)}
+                    />
+                    <FavoriteBorderIcon className="Icon" />
+                </Section>
+            }
 
-        return (
-            <div className="SearchSection">
-                {!this.state.isInfoPageOn &&
-                    <Section title="Let's meet your new best friend." class="Search">
-                        <Autocomplete
-                            renderInput={(params) => <TextField {...params} label="Enter breed" />}
-                            options={this.state.breeds}
-                            getOptionLabel={(option) => option.name ?? ""}
-                            sx={{
-                                width: 1 / 4,
-                                mx: "auto",
-                                mb: 2
-                            }}
-                            disablePortal
-                            id="combo-box-demo"
-                            onChange={(_event, value) => this.onBreedClick(value as ICatViewModel)}
-                        />
-                        <FavoriteBorderIcon className="Icon" />
-                    </Section>
-                }
+            {isInfoPageOn &&
+                <Section title={selectedBreed.name} class="CatInfo">
+                    <Button
+                        variant="contained"
+                        endIcon={<ArrowBack />}
+                        sx={{ marginBottom: "10px", backgroundColor: "#FFFFFF", color: "#BC4B4C" }}
+                        onClick={() => onBackClick()}
+                        className={"BackButton"}
+                    >
+                        Back
+                    </Button>
+                    <div className="Metrics">
+                        <Card className={"CatInfoCard"}>
+                            <div className={"ImageBox"}>
+                                <img
+                                    src={selectedBreed.imageUrl}
+                                    className={"BeforeImage"}
+                                />
+                            </div>
+                            <CardContent sx={{ height: 1 / 4 }}>
+                                <Typography variant="h5" component="div">
+                                    {selectedBreed.name}
+                                </Typography>
+                                <Typography variant="body2">
+                                    {selectedBreed.description}
+                                </Typography>
+                            </CardContent>
+                        </Card>
 
-                {this.state.isInfoPageOn &&
-                    <Section title={this.state.selectedBreed.name} class="CatInfo">
-                        <Button
-                            variant="contained"
-                            endIcon={<ArrowBack />}
-                            sx={{ marginBottom: "10px", backgroundColor: "#FFFFFF", color: "#BC4B4C" }}
-                            onClick={() => this.onBackClick()}
-                            className={"BackButton"}
-                        >
-                            Back
-                        </Button>
-                        <div className="Metrics">
-                            <Card className={"CatInfoCard"}>
-                                <div className={"ImageBox"}>
-                                    <img
-                                        src={this.state.selectedBreed.imageUrl}
-                                        className={"BeforeImage"}
-                                    />
-                                </div>
-                                <CardContent sx={{ height: 1 / 4 }}>
-                                    <Typography variant="h5" component="div">
-                                        {this.state.selectedBreed.name}
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        {this.state.selectedBreed.description}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-
-                            <Paper className={"CatInfoGraph"}>
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart
-                                        layout="horizontal"
-                                        data={this.state.selectedBreed.metrics}
-                                        barCategoryGap={15}
-                                    >
-                                        <XAxis dataKey="name" interval={0} />
-                                        <YAxis dataKey="value" />
-                                        <Bar dataKey="value" fill="#BC4B4C" />
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            </Paper>
-                        </div>
-                    </Section>
-                }
-            </div>
-        )
-    }
+                        <Paper className={"CatInfoGraph"}>
+                            <ResponsiveContainer width="100%" height="100%">
+                                <BarChart
+                                    layout="horizontal"
+                                    data={selectedBreed.metrics}
+                                    barCategoryGap={15}
+                                >
+                                    <XAxis dataKey="name" interval={0} />
+                                    <YAxis dataKey="value" />
+                                    <Bar dataKey="value" fill="#BC4B4C" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </Paper>
+                    </div>
+                </Section>
+            }
+        </div>
+    )
 }
 
 export default Search

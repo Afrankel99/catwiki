@@ -8,17 +8,13 @@ export interface ISectionProps {
     children?: React.ReactNode
 }
 
-class Section extends React.Component<ISectionProps> {
-    static displayName = "Section"
-
-    render() {
-        return (
-            <div className={this.props.class}>
-                <h1>{this.props.title}</h1>
-                {this.props.children}
-            </div>
-        )
-    }
+function Section(props: ISectionProps) {
+    return (
+        <div className={props.class}>
+            <h1>{props.title}</h1>
+            {props.children}
+        </div>
+    )
 }
 
 export default Section
